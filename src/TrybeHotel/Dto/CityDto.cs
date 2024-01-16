@@ -1,5 +1,10 @@
-namespace TrybeHotel.Dto {
-     public class CityDto {
+using TrybeHotel.Models;
 
+namespace TrybeHotel.Dto
+{
+    public class CityDto
+    {
+        public int CityId { get; set; }
+        public string? Name { get; set; }
     }
 }
