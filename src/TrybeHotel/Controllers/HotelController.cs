@@ -27,7 +27,7 @@ namespace TrybeHotel.Controllers
         [HttpPost]
         public IActionResult PostHotel([FromBody] Hotel hotel)
         {
-            throw new NotImplementedException();
+            return Created("", _repository.AddHotel(hotel));
         }
 
 
