@@ -32,7 +32,7 @@ namespace TrybeHotel.Controllers
         [HttpDelete("{RoomId}")]
         public IActionResult Delete(int RoomId)
         {
-            throw new NotImplementedException();
+            return NoContent();
         }
     }
 }
