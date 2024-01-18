@@ -19,6 +19,13 @@ builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+builder.Services.AddAuthorization(options =>
+{
+    // Crie uma política chamada Client que requira a claim ClaimType.Email.
+    options.AddPolicy("Client", policy => policy.RequireClaim(ClaimTypes.Email));
+    // Crie uma política chamada Admin que requira a claim ClaimType.Email e a claim ClaimType.Role como admin.
+    options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Email).RequireClaim(ClaimTypes.Role, "admin"));
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -54,7 +61,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization(options =>
 {
-    
+
 });
 
 var app = builder.Build();

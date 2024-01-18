@@ -30,7 +30,7 @@ namespace TrybeHotel.Repository
         }
         public UserDto Add(UserDtoInsert user)
         {
-            User userObj = new User
+            User userObj = new()
             {
                 Name = user.Name,
                 Email = user.Email,

@@ -54,9 +54,9 @@
               "resultFile": {
                 "uri": "file:///Users/jpastolfi/Trybe/trybe-exercicios/eletiva-c-sharp/projetos/csharp-030-csharp-projeto-trybe-hotel-fase-b/src/TrybeHotel/Program.cs",
                 "region": {
-                  "startLine": 83,
+                  "startLine": 90,
                   "startColumn": 22,
-                  "endLine": 83,
+                  "endLine": 90,
                   "endColumn": 29
                 }
               }
