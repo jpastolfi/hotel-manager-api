@@ -1,5 +1,6 @@
 using TrybeHotel.Models;
 using TrybeHotel.Dto;
+using System.IO.Compression;
 
 namespace TrybeHotel.Repository
 {
@@ -17,21 +18,52 @@ namespace TrybeHotel.Repository
 
         public UserDto Login(LoginDto login)
         {
-           throw new NotImplementedException();
+            var userObj = _context.Users.FirstOrDefault(user => user.Email! == login.Email && user.Password! == login.Password);
+            if (userObj == null) return null!;
+            return new UserDto
+            {
+                UserId = userObj.UserId,
+                Name = userObj.Name,
+                Email = userObj.Email,
+                UserType = userObj.UserType,
+            };
         }
         public UserDto Add(UserDtoInsert user)
         {
-            throw new NotImplementedException(); 
+            User userObj = new User
+            {
+                Name = user.Name,
+                Email = user.Email,
+                Password = user.Password,
+                UserType = "client",
+            };
+            _context.Users.Add(userObj);
+            _context.SaveChanges();
+            return new UserDto
+            {
+                UserId = userObj.UserId,
+                Name = userObj.Name,
+                Email = userObj.Email,
+                UserType = userObj.UserType
+            };
         }
 
         public UserDto GetUserByEmail(string userEmail)
         {
-            throw new NotImplementedException();
+            var selectedUser = _context.Users.FirstOrDefault(user => user.Email!.Equals(userEmail));
+            if (selectedUser == null) return null!;
+            return new UserDto
+            {
+                UserId = selectedUser.UserId,
+                Name = selectedUser.Name,
+                Email = selectedUser.Email,
+                UserType = selectedUser.UserType,
+            };
         }
 
         public IEnumerable<UserDto> GetUsers()
         {
-           throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
     }
