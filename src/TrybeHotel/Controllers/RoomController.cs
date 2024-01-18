@@ -34,6 +34,8 @@ namespace TrybeHotel.Controllers
 
         // 8. Desenvolva o endpoint DELETE /room/:roomId
         [HttpDelete("{RoomId}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Policy = "admin")]
         public IActionResult Delete(int RoomId)
         {
             return NoContent();

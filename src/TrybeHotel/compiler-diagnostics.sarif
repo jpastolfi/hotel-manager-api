@@ -12,31 +12,18 @@
       },
       "results": [
         {
-          "ruleId": "CS8618",
+          "ruleId": "CS8604",
           "level": "warning",
-          "message": "Non-nullable property 'Secret' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.",
+          "message": "Possible null reference argument for parameter 's' in 'byte[] Encoding.GetBytes(string s)'.",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///Users/jpastolfi/Trybe/trybe-exercicios/eletiva-c-sharp/projetos/csharp-030-csharp-projeto-trybe-hotel-fase-b/src/TrybeHotel/Services/TokenOptions.cs",
+                "uri": "file:///Users/jpastolfi/Trybe/trybe-exercicios/eletiva-c-sharp/projetos/csharp-030-csharp-projeto-trybe-hotel-fase-b/src/TrybeHotel/Services/TokenGenerator.cs",
                 "region": {
-                  "startLine": 6,
-                  "startColumn": 23,
-                  "endLine": 6,
-                  "endColumn": 29
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///Users/jpastolfi/Trybe/trybe-exercicios/eletiva-c-sharp/projetos/csharp-030-csharp-projeto-trybe-hotel-fase-b/src/TrybeHotel/Services/TokenOptions.cs",
-                "region": {
-                  "startLine": 6,
-                  "startColumn": 23,
-                  "endLine": 6,
-                  "endColumn": 29
+                  "startLine": 29,
+                  "startColumn": 110,
+                  "endLine": 29,
+                  "endColumn": 130
                 }
               }
             }
@@ -134,11 +121,11 @@
             ]
           }
         },
-        "CS8618": {
-          "id": "CS8618",
-          "shortDescription": "Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.",
+        "CS8604": {
+          "id": "CS8604",
+          "shortDescription": "Possible null reference argument.",
           "defaultLevel": "warning",
-          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8618)",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8604)",
           "properties": {
             "category": "Compiler",
             "isEnabledByDefault": true,
