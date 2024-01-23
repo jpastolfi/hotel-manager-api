@@ -19,9 +19,11 @@ namespace TrybeHotel.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "Admin")]
         public IActionResult GetUsers()
         {
-            throw new NotImplementedException();
+            IEnumerable<UserDto> foundUsers = _repository.GetUsers();
+            return Ok(foundUsers);
         }
 
         [HttpPost]
