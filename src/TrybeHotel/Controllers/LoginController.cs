@@ -3,6 +3,8 @@ using TrybeHotel.Models;
 using TrybeHotel.Repository;
 using TrybeHotel.Dto;
 using TrybeHotel.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace TrybeHotel.Controllers
 {
@@ -19,8 +21,16 @@ namespace TrybeHotel.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody] LoginDto login){
-           throw new NotImplementedException();
+        public IActionResult Login([FromBody] LoginDto login)
+        {
+            var validUser = _repository.Login(login);
+            if (validUser == null) return Unauthorized(new
+            {
+                message = "Incorrect e-mail or password"
+            });
+
+            string token = new TokenGenerator().Generate(validUser);
+            return Ok(new { token });
         }
     }
 }
