@@ -113,6 +113,7 @@ namespace TrybeHotel.Repository
                         Address = foundBooking.Room.Hotel.Address,
                         CityId = foundBooking.Room.Hotel.CityId,
                         CityName = foundBooking.Room.Hotel.City!.Name,
+                        State = foundBooking.Room.Hotel.City.State,
                     }
                 }
             };
