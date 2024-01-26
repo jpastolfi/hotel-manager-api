@@ -18,7 +18,10 @@ namespace TrybeHotel.Services
         // 11. Desenvolva o endpoint GET /geo/status
         public async Task<object> GetGeoStatus()
         {
-            var response = await _client.GetAsync("status.php?format=json");
+            var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_baseUrl}status.php?format=json");
+            requestMessage.Headers.Add("Accept", "application/json");
+            requestMessage.Headers.Add("User-Agent", "aspnet-user-agent");
+            var response = await _client.SendAsync(requestMessage);
             if (!response.IsSuccessStatusCode)
             {
                 return default!;
@@ -30,7 +33,17 @@ namespace TrybeHotel.Services
         // 12. Desenvolva o endpoint GET /geo/address
         public async Task<GeoDtoResponse> GetGeoLocation(GeoDto geoDto)
         {
-            throw new NotImplementedException();
+            var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{_baseUrl}/search?street={geoDto.Address}&city={geoDto.City}&country=Brazil&state={geoDto.State}&format=json&limit=1");
+            requestMessage.Headers.Add("Accept", "application/json");
+            requestMessage.Headers.Add("User-Agent", "aspnet-user-agent");
+            var response = await _client.SendAsync(requestMessage);
+            Console.WriteLine("Teste");
+            Console.WriteLine(response);
+            return new GeoDtoResponse()
+            {
+                lat = "",
+                lon = "",
+            };
         }
 
         // 12. Desenvolva o endpoint GET /geo/address
