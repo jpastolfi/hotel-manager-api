@@ -18,7 +18,8 @@ namespace TrybeHotel.Repository
             var cityReturn = _context.Cities.Select(c => new CityDto
             {
                 CityId = c.CityId,
-                Name = c.Name
+                Name = c.Name,
+                State = c.State,
             }).ToList();
             return cityReturn;
         }
