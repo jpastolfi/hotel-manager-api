@@ -1,5 +1,6 @@
 using TrybeHotel.Models;
 using TrybeHotel.Dto;
+using System.IO.Compression;
 
 namespace TrybeHotel.Repository
 {
@@ -38,7 +39,17 @@ namespace TrybeHotel.Repository
         // 3. Desenvolva o endpoint PUT /city
         public CityDto UpdateCity(City city)
         {
-            throw new NotImplementedException();
+            City chosenCity = _context.Cities.FirstOrDefault(c => c.CityId == city.CityId)!;
+            chosenCity.Name = city.Name;
+            chosenCity.State = city.State;
+            _context.SaveChanges();
+            CityDto cityToReturn = new()
+            {
+                CityId = city.CityId,
+                Name = city.Name,
+                State = city.State,
+            };
+            return cityToReturn;
         }
 
     }
