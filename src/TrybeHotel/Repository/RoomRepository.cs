@@ -11,7 +11,6 @@ namespace TrybeHotel.Repository
             _context = context;
         }
 
-        // 6. Desenvolva o endpoint GET /room/:hotelId
         public IEnumerable<RoomDto> GetRooms(int HotelId)
         {
             IEnumerable<RoomDto> Rooms = from room in _context.Rooms
@@ -29,6 +28,7 @@ namespace TrybeHotel.Repository
                                                  Address = room.Hotel.Address,
                                                  CityId = room.Hotel.CityId,
                                                  CityName = room.Hotel.City!.Name,
+                                                 State = room.Hotel.City.State,
                                              },
                                          };
             return Rooms;
@@ -53,8 +53,8 @@ namespace TrybeHotel.Repository
                                 Name = r.Hotel!.Name,
                                 Address = r.Hotel.Address,
                                 CityId = r.Hotel.CityId,
-                                CityName = r.Hotel.City!.Name
-
+                                CityName = r.Hotel.City!.Name,
+                                State = r.Hotel.City.State,
                             }
                         };
             return query.First();

@@ -1,6 +1,6 @@
 using TrybeHotel.Models;
 using TrybeHotel.Dto;
-using Microsoft.AspNetCore.Mvc;
+using System.IO.Compression;
 
 namespace TrybeHotel.Repository
 {
@@ -12,18 +12,19 @@ namespace TrybeHotel.Repository
             _context = context;
         }
 
-        // 2. Desenvolva o endpoint GET /city
+        // 4. Refatore o endpoint GET /city
         public IEnumerable<CityDto> GetCities()
         {
             var cityReturn = _context.Cities.Select(c => new CityDto
             {
                 CityId = c.CityId,
-                Name = c.Name
+                Name = c.Name,
+                State = c.State,
             }).ToList();
             return cityReturn;
         }
 
-        // 3. Desenvolva o endpoint POST /city
+        // 2. Refatore o endpoint POST /city
         public CityDto AddCity(City city)
         {
             _context.Cities.Add(city);
@@ -31,8 +32,25 @@ namespace TrybeHotel.Repository
             return new CityDto
             {
                 CityId = city.CityId,
-                Name = city.Name
+                Name = city.Name,
+                State = city.State,
             };
+        }
+
+        // 3. Desenvolva o endpoint PUT /city
+        public CityDto UpdateCity(City city)
+        {
+            City chosenCity = _context.Cities.FirstOrDefault(c => c.CityId == city.CityId)!;
+            chosenCity.Name = city.Name;
+            chosenCity.State = city.State;
+            _context.SaveChanges();
+            CityDto cityToReturn = new()
+            {
+                CityId = city.CityId,
+                Name = city.Name,
+                State = city.State,
+            };
+            return cityToReturn;
         }
 
     }

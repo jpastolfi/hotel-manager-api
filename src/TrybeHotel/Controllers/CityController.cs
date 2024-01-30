@@ -14,18 +14,23 @@ namespace TrybeHotel.Controllers
             _repository = repository;
         }
 
-        // 2. Desenvolva o endpoint GET /city
         [HttpGet]
         public IActionResult GetCities()
         {
             return Ok(_repository.GetCities());
         }
 
-        // 3. Desenvolva o endpoint POST /city
         [HttpPost]
         public IActionResult PostCity([FromBody] City city)
         {
             return Created("", _repository.AddCity(city));
+        }
+
+        // 3. Desenvolva o endpoint PUT /city
+        [HttpPut]
+        public IActionResult PutCity([FromBody] City city)
+        {
+            return Ok(city);
         }
     }
 }

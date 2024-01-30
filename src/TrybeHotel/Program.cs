@@ -19,13 +19,7 @@ builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
-builder.Services.AddAuthorization(options =>
-{
-    // Crie uma política chamada Client que requira a claim ClaimType.Email.
-    options.AddPolicy("Client", policy => policy.RequireClaim(ClaimTypes.Email));
-    // Crie uma política chamada Admin que requira a claim ClaimType.Email e a claim ClaimType.Role como admin.
-    options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Email).RequireClaim(ClaimTypes.Role, "admin"));
-});
+builder.Services.AddHttpClient<IGeoService, GeoService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -33,6 +27,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllersWithViews()
                 .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddHttpClient();
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("https://nominatim.openstreetmap.org",
+                                              "https://openstreetmap.org");
+                      });
+});
 
 
 builder.Services.Configure<TokenOptions>(
@@ -61,7 +66,8 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization(options =>
 {
-
+    options.AddPolicy("Client", policy => policy.RequireClaim(ClaimTypes.Email));
+    options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Email).RequireClaim(ClaimTypes.Role, "admin"));
 });
 
 var app = builder.Build();
@@ -76,12 +82,15 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
+app.UseRouting();
+
+// app.UseCors(MyAllowSpecificOrigins);
+app.UseCors(c => c.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseCors(c => c.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.MapControllers();
 

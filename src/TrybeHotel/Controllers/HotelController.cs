@@ -9,7 +9,7 @@ namespace TrybeHotel.Controllers
 {
     [ApiController]
     [Route("hotel")]
-    [Authorize]
+    /* [Authorize] */
     public class HotelController : Controller
     {
         private readonly IHotelRepository _repository;

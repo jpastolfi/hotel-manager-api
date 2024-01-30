@@ -11,6 +11,10 @@ using System.Diagnostics;
 using System.Xml;
 using System.IO;
 
+public class LoginJson
+{
+    public string? token { get; set; }
+}
 
 
 public class IntegrationTest : IClassFixture<WebApplicationFactory<Program>>
@@ -45,8 +49,8 @@ public class IntegrationTest : IClassFixture<WebApplicationFactory<Program>>
                     appContext.Database.EnsureCreated();
                     appContext.Database.EnsureDeleted();
                     appContext.Database.EnsureCreated();
-                    appContext.Cities.Add(new City { CityId = 1, Name = "Manaus" });
-                    appContext.Cities.Add(new City { CityId = 2, Name = "Palmas" });
+                    appContext.Cities.Add(new City { CityId = 1, Name = "Manaus", State = "AM" });
+                    appContext.Cities.Add(new City { CityId = 2, Name = "Palmas", State = "TO" });
                     appContext.SaveChanges();
                     appContext.Hotels.Add(new Hotel { HotelId = 1, Name = "Trybe Hotel Manaus", Address = "Address 1", CityId = 1 });
                     appContext.Hotels.Add(new Hotel { HotelId = 2, Name = "Trybe Hotel Palmas", Address = "Address 2", CityId = 2 });
@@ -82,7 +86,5 @@ public class IntegrationTest : IClassFixture<WebApplicationFactory<Program>>
         var response = await _clientTest.GetAsync(url);
         Assert.Equal(System.Net.HttpStatusCode.OK, response?.StatusCode);
     }
-
-
 
 }

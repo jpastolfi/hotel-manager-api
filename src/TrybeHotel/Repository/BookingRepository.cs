@@ -29,9 +29,37 @@ namespace TrybeHotel.Repository
             };
             _context.Bookings.Add(bookingToAdd);
             _context.SaveChanges();
-            Booking addedBooking = _context.Bookings.FirstOrDefault(b => b.BookingId == bookingToAdd.BookingId)!;
-            Hotel chosenHotel = _context.Hotels.FirstOrDefault(h => h.HotelId == addedBooking.Room!.HotelId)!;
-            var response = new BookingResponse()
+            var response = (from b in _context.Bookings
+                            join r in _context.Rooms
+                            on b.Room!.Name equals r.Name
+                            join h in _context.Hotels
+                            on r.Hotel!.HotelId equals h.HotelId
+                            where b.BookingId == bookingToAdd.BookingId
+                            select new BookingResponse()
+                            {
+                                BookingId = b.BookingId,
+                                CheckIn = b.CheckIn,
+                                CheckOut = b.CheckOut,
+                                GuestQuant = b.GuestQuant,
+                                Room = new RoomDto()
+                                {
+                                    RoomId = r.RoomId,
+                                    Name = r.Name,
+                                    Capacity = r.Capacity,
+                                    Image = r.Image,
+                                    Hotel = new HotelDto()
+                                    {
+                                        HotelId = h.HotelId,
+                                        Name = h.Name,
+                                        Address = h.Address,
+                                        CityId = h.CityId,
+                                        CityName = h.City!.Name,
+                                        State = h.City.State,
+                                    }
+                                }
+                            }).FirstOrDefault();
+            return response!;
+            /* var response = new BookingResponse()
             {
                 BookingId = addedBooking.BookingId,
                 CheckIn = addedBooking.CheckIn,
@@ -50,10 +78,11 @@ namespace TrybeHotel.Repository
                         Address = chosenHotel.Address,
                         CityId = chosenHotel.CityId,
                         CityName = chosenHotel.Name,
+                        State = chosenHotel.City!.State,
                     }
                 }
-            };
-            return response;
+            }; */
+            /* return response; */
         }
 
         public BookingResponse GetBooking(int bookingId, string email)
@@ -84,6 +113,7 @@ namespace TrybeHotel.Repository
                         Address = foundBooking.Room.Hotel.Address,
                         CityId = foundBooking.Room.Hotel.CityId,
                         CityName = foundBooking.Room.Hotel.City!.Name,
+                        State = foundBooking.Room.Hotel.City.State,
                     }
                 }
             };
