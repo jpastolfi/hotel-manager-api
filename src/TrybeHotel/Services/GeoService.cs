@@ -1,6 +1,8 @@
 using System.Net.Http;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Mvc;
 using TrybeHotel.Dto;
+using TrybeHotel.Models;
 using TrybeHotel.Repository;
 
 namespace TrybeHotel.Services
@@ -37,22 +39,51 @@ namespace TrybeHotel.Services
             requestMessage.Headers.Add("Accept", "application/json");
             requestMessage.Headers.Add("User-Agent", "aspnet-user-agent");
             var response = await _client.SendAsync(requestMessage);
-            Console.WriteLine("Teste");
-            Console.WriteLine(response);
+            if (!response.IsSuccessStatusCode)
+            {
+                return default(GeoDtoResponse)!;
+            }
+            var result = await response.Content.ReadFromJsonAsync<List<GeoDtoResponse>>();
             return new GeoDtoResponse()
             {
-                lat = "",
-                lon = "",
+                lat = result![0].lat,
+                lon = result![0].lon,
             };
         }
 
         // 12. Desenvolva o endpoint GET /geo/address
         public async Task<List<GeoDtoHotelResponse>> GetHotelsByGeo(GeoDto geoDto, IHotelRepository repository)
         {
-            throw new NotImplementedException();
+            IEnumerable<HotelDto> hotels = repository.GetHotels();
+            List<GeoDtoHotelResponse> hotelsList = new();
+            GeoDtoResponse locationCoordinates = await GetGeoLocation(geoDto);
+            foreach (HotelDto hotel in hotels)
+            {
+                GeoDtoResponse hotelCoordinates = await GetGeoLocation(new GeoDto()
+                {
+                    Address = hotel.Address,
+                    City = hotel.CityName,
+                    State = hotel.State,
+                });
+                int distanceHotelLocation = CalculateDistance(
+                    locationCoordinates.lat!,
+                    locationCoordinates.lon!,
+                    hotelCoordinates.lat!,
+                    hotelCoordinates.lon!
+                );
+                GeoDtoHotelResponse hotelWithDistance = new()
+                {
+                    HotelId = hotel.HotelId,
+                    Name = hotel.Name,
+                    Address = hotel.Address,
+                    CityName = hotel.CityName,
+                    State = hotel.State,
+                    Distance = distanceHotelLocation,
+                };
+                hotelsList.Add(hotelWithDistance);
+            }
+            return hotelsList;
         }
-
-
 
         public int CalculateDistance(string latitudeOrigin, string longitudeOrigin, string latitudeDestiny, string longitudeDestiny)
         {
