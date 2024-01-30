@@ -18,7 +18,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///Users/jpastolfi/Trybe/trybe-exercicios/eletiva-c-sharp/projetos/csharp-030-csharp-projeto-trybe-hotel-fase-c/src/TrybeHotel/Program.cs",
+                "uri": "file:///Users/jpastolfi/Trybe/trybe-exercicios/eletiva-c-sharp/projetos/csharp-030-csharp-projeto-trybe-hotel-fase-d/src/TrybeHotel/Program.cs",
                 "region": {
                   "startLine": 99,
                   "startColumn": 22,
@@ -31,7 +31,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "file:///Users/jpastolfi/Trybe/trybe-exercicios/eletiva-c-sharp/projetos/csharp-030-csharp-projeto-trybe-hotel-fase-c/src/TrybeHotel/Program.cs",
+                "uri": "file:///Users/jpastolfi/Trybe/trybe-exercicios/eletiva-c-sharp/projetos/csharp-030-csharp-projeto-trybe-hotel-fase-d/src/TrybeHotel/Program.cs",
                 "region": {
                   "startLine": 10,
                   "startColumn": 1,
@@ -52,7 +52,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///Users/jpastolfi/Trybe/trybe-exercicios/eletiva-c-sharp/projetos/csharp-030-csharp-projeto-trybe-hotel-fase-c/src/TrybeHotel/Services/TokenGenerator.cs",
+                "uri": "file:///Users/jpastolfi/Trybe/trybe-exercicios/eletiva-c-sharp/projetos/csharp-030-csharp-projeto-trybe-hotel-fase-d/src/TrybeHotel/Services/TokenGenerator.cs",
                 "region": {
                   "startLine": 36,
                   "startColumn": 32,
