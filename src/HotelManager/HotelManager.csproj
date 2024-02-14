@@ -24,7 +24,6 @@
   </ItemGroup>
 
  <ItemGroup>
-    <InternalsVisibleTo Include="HotelManager.Test.Test" />
     <InternalsVisibleTo Include="HotelManager.Test" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,31 @@
+# Esse docker-compose é usado para rodar um container SQL Server como seu banco de dados.
+# Para usá-lo, execute no terminal: docker-compose up -d --build
+
+version: '3'
+services:
+  backend:
+    container_name: hotel_manager
+    build: ./src/HotelManager
+    ports:
+      - 8080:8080
+    volumes:
+      - ./src/HotelManager:/app-dev
+    environment:
+      - DB_HOST=db
+      - DB_PORT=1433
+      - DB_USER=sa
+      - DB_PASSWORD=HotelManager
+    restart: 'always'
+    depends_on:
+      - db
+
+  db:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    container_name: hotel_manager_db
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=HotelManager
+      - MSSQL_PID=Developer
+    restart: 'always'
