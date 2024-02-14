@@ -1,42 +1,48 @@
-# Hotel Booking Manager API 🏨
-Software de booking de várias redes de hóteis no formato de uma RESTful API com operações de CRUD.
-<br><br>
-O projeto foi feito utilizando C#, ASP.NET Core, .NET 6.0, Entity Framework Core (ORM) e MySQL (inicialmente foi desenvolvido com MS SQL Server) para gerenciamento do banco de dados e dockerizado para fácil execução em qualquer máquina.<br><br>
-A autenticação e autorização foi feita com JWT. Os testes estão sendo desenvolvidos usando xUnit.<br><br>
-Deploys:
-- Banco de Dados: Railway
-- API: Heroku
+**Hotel Booking Manager API **
 
+Booking software for multiple hotel chains in the form of a RESTful API with CRUD operations.
 
-## Feito com 👨‍💻:
+**Description**
+
+The project was developed using C#, ASP.NET Core, .NET 6.0, Entity Framework Core (ORM) and MySQL (initially developed with MS SQL Server) for database management and dockerized for easy execution on any machine.
+
+Authentication and authorization was done with JWT. Tests are being developed using xUnit.
+
+**Technologies used:**
+
 - C#
 - .NET 6.0
 - ASP.NET Core
 - Entity Framework Core
-- MySQL (o código para migração para MS SQL Server está no projeto)
+- MySQL
 - Docker
 - JWT
-- Testes de integração com xUnit
-- Arquitetura em Camadas
+- Integration tests with xUnit
+- Layered Architecture
 
-## Como rodar o projeto:
-1)  Clone o repositório;
-2)  Entre no diretório do projeto;
-3)  Inicie o container do banco de dados: `docker-compose up -d --build`;
-4)  Entre no diretório src;
-5)  Instale as dependências: `dotnet restore`;
-6)  Entre em src/HotelManagerAPI e inicie o projeto: `dotnet run`;
+**How to run the project:**
 
-## Tabelas:
-![Entity Relationship Diagram](/er-diagram.jpeg)
-- Cities: armazena um conjunto de cidades nas quais os hotéis estão localizados. Uma cidade pode ter vários hotéis.
-- Hotels: armazena os hotéis da aplicação. Um hotel pode ter vários quartos.
-- Rooms: armazena os quartos de cada hotel. Um quarto pode ter várias reservas.
-- Users: armazena as pessoas usuárias do sistema. Um usuário pode ter várias reservas.
-- Bookings: armazena as reservas dos quartos de hotéis.
-  
-## Documentação (em desenvolvimento):
-![Swagger Routes](/swagger-routes.jpeg)
+1. Clone the repository;
+2. Enter the project directory;
+3. Start the database container: `docker-compose up -d --build`;
+4. Enter the src directory;
+5. Install the dependencies: `dotnet restore`;
+6. Enter src/HotelManagerAPI and start the project: `dotnet run`;
 
-## Rodando os testes:
-1)  Para rodar os testes: `dotnet test`
+**Tables:**
+
+Entity Relationship Diagram: /er-diagram.jpeg
+
+- Cities: stores a set of cities in which the hotels are located. A city can have multiple hotels.
+- Hotels: stores the hotels in the application. A hotel can have multiple rooms.
+- Rooms: stores the rooms of each hotel. A room can have multiple reservations.
+- Users: stores the system users. A user can have multiple reservations.
+- Bookings: stores the reservations for hotel rooms.
+
+**Documentation (under development):**
+
+Swagger Routes: /swagger-routes.jpeg
+
+**Running the tests:**
+
+1. To run the tests: `dotnet test`
